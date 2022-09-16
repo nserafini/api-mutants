@@ -1,0 +1,39 @@
+version: '3.1'
+
+volumes:
+  dbvol:
+    driver: local
+
+services:
+
+  api:
+    build:
+        context: .
+        dockerfile:  docker/api/Dockerfile
+    entrypoint: ["docker/api/entrypoint.sh"]
+    container_name: api-mutant
+    depends_on:
+      - db
+    environment:
+      - DB_HOST
+      - DB_PORT
+      - DB_USER
+      - DB_PASS
+      - DB_NAME
+    ports:
+      - "8090:8090"
+    volumes:
+      - ".:/app"
+
+  db:
+    container_name: db-mutant
+    build:
+        context: .
+        dockerfile: docker/db/Dockerfile
+    environment:
+      - MYSQL_DATABASE
+      - MYSQL_ROOT_PASSWORD
+    ports:
+      - "3315:3306"
+    volumes:
+      - dbvol:/var/lib/mysql
