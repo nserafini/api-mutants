@@ -11,7 +11,7 @@ services:
         context: .
         dockerfile:  docker/api/Dockerfile
     entrypoint: ["docker/api/entrypoint.sh"]
-    container_name: api-mutant
+    container_name: api-mutants
     depends_on:
       - db
     environment:
@@ -26,7 +26,7 @@ services:
       - ".:/app"
 
   db:
-    container_name: db-mutant
+    container_name: db-mutants
     build:
         context: .
         dockerfile: docker/db/Dockerfile
