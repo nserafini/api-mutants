@@ -14,7 +14,7 @@ class Logger:
             if log_path is None:
                 log_path = settings.PATCH_LOGS
             logger = logging.getLogger(name)
-            log_format='%(asctime)s - %(levelname)s - %(pathname)s - Line: %(lineno)d - '
+            log_format = '%(asctime)s - %(levelname)s - %(pathname)s - Line: %(lineno)d - '
             formatter = logging.Formatter(fmt=log_format + " %(message)s")
             file_handler = logging.FileHandler(log_path + '/' + name + ".log")
             file_handler.setFormatter(formatter)
