@@ -1,5 +1,5 @@
-from sqlalchemy import Column, Text, Boolean
-
+from sqlalchemy import Column, Boolean
+from sqlalchemy.sql.sqltypes import JSON
 from app.models.base import BaseModel
 
 
@@ -8,5 +8,5 @@ class HumanModel(BaseModel):
 
     __tablename__ = "human"
 
-    dna = Column(Text, nullable=False)
+    dna = Column(JSON, nullable=False)
     is_mutant = Column(Boolean, nullable=False)

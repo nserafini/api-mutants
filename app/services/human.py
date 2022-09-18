@@ -21,12 +21,15 @@ class HumanService:
         """Creates a Human."""
 
         with get_session() as session:
-            human = HumanModel(
-                dna=','.join(self.dna), 
-                is_mutant=self.is_mutant()
-            )
-            session.add(human)
-            session.commit()
+            human = session.query(HumanModel).filter_by(
+                **{'dna': self.dna}).first()
+            if not human:
+                human = HumanModel(
+                    dna=self.dna, 
+                    is_mutant=self.is_mutant()
+                )
+                session.add(human)
+                session.commit()
         return human
 
     def is_mutant(self):
