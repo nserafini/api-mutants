@@ -38,6 +38,8 @@ class HumanService:
         self.check_table_size()
         self.scan_rows()
         self.scan_columns()
+        self.scan_up_foward_diagonals()
+        self.scan_down_foward_diagonals()
 
         if self.founded_sequences >= self.min_sequence_match:
             is_mutant = True
@@ -69,16 +71,62 @@ class HumanService:
         while (not self.min_sequences_reached() and j < len(self.dna)):
             i = 0
             self.consecutive_letters = 0
-            while (not self.min_sequences_reached() and self.continue_scan(i)):
+            while (not self.min_sequences_reached() and self.continue_scan(len(self.dna) - i)):
                 self.scan_position(i, j, i + 1, j)
                 i += 1
             j += 1
 
-    def continue_scan(self, i):
+    def scan_up_foward_diagonals(self):
+        """Scans Up Foward Diagonals."""
+
+        row = self.sequence_length - 1
+        while (not self.min_sequences_reached() and row < len(self.dna)):
+            i = row
+            j = 0
+            while (not self.min_sequences_reached() and self.continue_scan((row + 1) - j)):
+                self.scan_position(i, j, i - 1, j + 1)
+                i -= 1
+                j += 1
+            row += 1
+        column = 1
+
+        while (not self.min_sequences_reached() and column < (len(self.dna) - self.sequence_length + 1)):
+            i = len(self.dna) - 1
+            j = column
+            while (not self.min_sequences_reached() and self.continue_scan(len(self.dna) - j)):
+                self.scan_position(i, j, i - 1, j + 1)
+                i -= 1
+                j += 1
+            column += 1
+
+    def scan_down_foward_diagonals(self):
+        """Scans Down Foward Diagonals."""
+
+        row = len(self.dna) - self.sequence_length
+        while (not self.min_sequences_reached() and row >= 0):
+            i = row
+            j = 0
+            while (not self.min_sequences_reached() and self.continue_scan((len(self.dna) - row) - j)):
+                self.scan_position(i, j, i + 1, j + 1)
+                i += 1
+                j += 1
+            row -= 1
+        column = 1
+
+        while (not self.min_sequences_reached() and column < (len(self.dna) - self.sequence_length + 1)):
+            i = 0
+            j = column
+            while (not self.min_sequences_reached() and self.continue_scan((len(self.dna) - column) - i)):
+                self.scan_position(i, j, i + 1, j + 1)
+                i += 1
+                j += 1
+            column += 1
+            
+    def continue_scan(self, remaining_positions):
         """Verifies if continue scan."""
 
         continue_scan = False
-        if (len(self.dna) - i) >= (self.sequence_length - self.consecutive_letters):
+        if remaining_positions >= (self.sequence_length - self.consecutive_letters):
             continue_scan = True
         return continue_scan
 

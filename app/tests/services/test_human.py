@@ -88,3 +88,51 @@ class TestHumanService(BaseTestCase):
 
         dna = ["ATATATATA", "CGCGCGCGC", "ATATATAGA", "CGCGCGCGC", "ATATATAGA", "CGCGCGCGC", "ATATATAGA", "CGCGCGCGC", "ATATATAGA"]
         assert HumanService(dna).is_mutant() is True
+
+    def test_is_mutant_with_two_diagonals_sequences(self):
+        """Tests is Mutant with two diagonals Sequences."""
+
+        dna = ["ATGTGA", "CATTGC", "TTATTT", "TGAAGG", "GCGTCA", "TCACTG"]
+        assert HumanService(dna).is_mutant() is True
+
+    def test_is_not_mutant_with_only_one_diagonal_sequences(self):
+        """Tests is not Mutant with only one diagonal Sequence."""
+
+        dna = ["ATGGGA", "CATTGC", "TTATTT", "TGAAGG", "GCGTCA", "TCACTG"]
+        assert HumanService(dna).is_mutant() is False
+
+    def test_is_mutant_with_two_diagonals_in_sequences(self):
+        """Tests is Mutant with two diagonals in Sequences."""
+
+        dna = ["GTGTGA", "CATTGC", "TTATTT", "TGAAGG", "GCGTAA", "TCACTG"]
+        assert HumanService(dna).is_mutant() is True
+
+    def test_is_mutant_with_two_consecutive_diagonal_sequences(self):
+        """Tests is Mutant with two consecutives diagonal Sequences."""
+
+        dna = ["ATATATATA", "CGCGCGCAC", "ATATATATA", "CGCGCACGC", "ATATATATA", "CGCACGCGT", "ATATATATA", "CACGCGTGC", "ATATATATA"]
+        assert HumanService(dna).is_mutant() is True
+
+    def test_is_mutant_with_two_backward_diagonals(self):
+        """Tests is Mutant with two backward diagonals Sequences."""
+
+        dna = ["GCGAGC", "ATATAT", "GAGCTC", "ATATAT", "GCTCGC", "ATATAT"]
+        assert HumanService(dna).is_mutant() is True
+
+    def test_is_mutant_with_two_foward_diagonals(self):
+        """Tests is Mutant with two foward diagonals Sequences."""
+
+        dna = ["GCGCGC", "ATAGAT", "GAGCGC", "ATATAG", "GCGAGC", "ATATAT"]
+        assert HumanService(dna).is_mutant() is True
+
+    def test_is_not_mutant_with_only_one_foward_diagonal_five_letters_sequence(self):
+        """Tests is not Mutant with only one Foward Diagonal of Five letters Sequence."""
+
+        dna = ["ATATAT", "GAGCGC", "ATATAT", "GCGAGC", "ATATAT", "GCGCGC"]
+        assert HumanService(dna).is_mutant() is False
+
+    def test_is_not_mutant_with_only_one_backward_diagonal_five_letters_sequence(self):
+        """Tests is not Mutant with only one Backward Diagonal of Five letters Sequence."""
+
+        dna = ["ATATAT", "GCGCTC", "ATATAT", "GCTCGC", "ATATAT", "GCGCGC"]
+        assert HumanService(dna).is_mutant() is False
