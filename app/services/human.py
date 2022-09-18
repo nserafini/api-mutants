@@ -6,6 +6,7 @@ class HumanService:
     """Class to manage Human Service."""
 
     dna = []
+    sequence_length = 4
 
     def __init__(self, dna):
         """Init Human."""
@@ -25,6 +26,13 @@ class HumanService:
         return human
 
     def is_mutant(self):
-        """Check if DNA is Mutant."""
+        """Checks if DNA is Mutant."""
 
+        self.check_table_size()
         return True
+
+    def check_table_size(self):
+        """Checks DNA table size."""
+
+        if len(self.dna) < self.sequence_length:
+            raise ValueError(f"Table min length must be {self.sequence_length}x{self.sequence_length}")
