@@ -18,11 +18,15 @@ jobs:
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
           DB_NAME: ${{ secrets.DB_NAME }}
-          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-          USER_ROOT_PASS: ${{ secrets.USER_ROOT_PASS }}
         run: |
           yes | docker image prune
-          docker-compose build --no-cache api
-          docker-compose down
-          docker-compose up -d
+          docker build . -f docker/api/Dockerfile --no-cache -t api
+          docker stop api-mutants
+          docker rm api-mutants
+            docker run \
+               -e DB_HOST=$DB_HOST \
+               -e DB_PORT=$DB_PORT \
+               -e DB_USER=$DB_USER \
+               -e DB_PASS=$DB_PASS \
+               -e DB_NAME=$DB_NAME \
+               -d -p 8090:8090 --name api-mutants api
