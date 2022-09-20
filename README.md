@@ -4,12 +4,12 @@ API Rest for check Human DNA and detect Mutants
 
 ### Swagger Doc
 
-- **URL:** http://ec2-54-174-45-231.compute-1.amazonaws.com/docs
+- **URL:** http://mutant-db-664268063.us-east-1.elb.amazonaws.com/docs
 
 ### Endpoints: 
 _________________________________________________
 
-- **Path:** http://ec2-54-174-45-231.compute-1.amazonaws.com/mutant
+- **Path:** http://mutant-db-664268063.us-east-1.elb.amazonaws.com/mutant
 
 - **Method:** POST
 
@@ -32,7 +32,7 @@ _________________________________________________
 
 _________________________________________________
 
-- **Path:** http://ec2-54-174-45-231.compute-1.amazonaws.com/stats
+- **Path:** http://mutant-db-664268063.us-east-1.elb.amazonaws.com/stats
 
 - **Method:** GET
 
