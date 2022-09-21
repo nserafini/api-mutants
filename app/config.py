@@ -6,6 +6,8 @@ import os
 class BaseConfig(BaseSettings):
     """Class to manage api settings."""
 
+    API_NAME: str = "api-mutants"
+    API_VERSION: str = "1.0.0"
     DB_HOST: str = getenv('DB_HOST')
     DB_PORT: int = getenv('DB_PORT')
     DB_NAME: str = getenv('DB_NAME')
